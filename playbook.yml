@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: false
+  become: true
+  become_method: sudo
+
+  tasks:
+  - name: Copy script to {{ inventory_hostname }}
+    copy:
+      src: namespace.sh
+      dest: /etc/init.d/namespaces
+      mode: u=rwx,g=r,o=r
+
+  - name: Create symlink to /etc/rc2.d
+    file:
+      src: /etc/init.d/namespaces
+      dest: "/etc/rc2.d/S80namespaces"
+      state: link
+
+  - name: Reboot
+    reboot:
