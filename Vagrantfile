@@ -10,8 +10,11 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--usb", "on"]
     vb.customize ["modifyvm", :id, "--usbehci", "off"]
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "25"]
-    vb.memory = 128
+    vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+    vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
+    vb.customize ["modifyvm", :id, "--nicpromisc5", "allow-all"]
+    vb.memory = 256
     vb.cpus = 1
   end
   config.vm.define "router" do |router|
@@ -26,20 +29,25 @@ Vagrant.configure("2") do |config|
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
   end
-  config.vm.define "host_a" do |host_a|
-    host_a.vm.box = "minimal/trusty64"
-    host_a.vm.hostname = "host_a"
-    host_a.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
+  config.vm.define "host-a" do |hosta|
+    hosta.vm.box = "minimal/trusty64"
+    hosta.vm.hostname = "host-a"
+    hosta.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
   end
-  config.vm.define "host_b" do |host_b|
-    host_b.vm.box = "minimal/trusty64"
-    host_b.vm.hostname = "host_a"
-    host_b.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
+  config.vm.define "host-b" do |hostb|
+    hostb.vm.box = "minimal/trusty64"
+    hostb.vm.hostname = "host-b"
+    hostb.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
   end
   config.vm.provision "shell", inline: <<-SHELL
+    export DEBIAN_FRONTEND=noninteractive
     apt-get update
-    ip netns add dncs
-    apt-get install -y tcpdump openvswitch-common openvswitch-switch
+    apt-get install -y tcpdump --assume-yes
+    apt-get install -y openvswitch-common openvswitch-switch apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    apt-get update
+    apt-get install -y docker-ce
     echo "alias dncs='sudo ip netns exec dncs'" >> /home/vagrant/.bashrc
   SHELL
 end
