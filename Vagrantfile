@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     router.vm.box = "minimal/trusty64"
     router.vm.hostname = "router"
     router.vm.network "private_network", virtualbox__intnet: "broadcast_router", auto_config: false
+    router.vm.provision "shell", path: "common.sh"
   end
   config.vm.define "switch" do |switch|
     switch.vm.box = "minimal/trusty64"
@@ -28,26 +29,18 @@ Vagrant.configure("2") do |config|
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_router", auto_config: false
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
+    switch.vm.provision "shell", path: "switch.sh"
   end
   config.vm.define "host-a" do |hosta|
     hosta.vm.box = "minimal/trusty64"
     hosta.vm.hostname = "host-a"
     hosta.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
+    hosta.vm.provision "shell", path: "common.sh"
   end
   config.vm.define "host-b" do |hostb|
     hostb.vm.box = "minimal/trusty64"
     hostb.vm.hostname = "host-b"
     hostb.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
+    hostb.vm.provision "shell", path: "docker.sh"
   end
-  config.vm.provision "shell", inline: <<-SHELL
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get install -y tcpdump --assume-yes
-    apt-get install -y openvswitch-common openvswitch-switch apt-transport-https ca-certificates curl software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    apt-get update
-    apt-get install -y docker-ce
-    echo "alias dncs='sudo ip netns exec dncs'" >> /home/vagrant/.bashrc
-  SHELL
 end
