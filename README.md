@@ -35,18 +35,20 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |     |        |          |     |          |             |
         |     |        |          |     |          |             |
         ++-+--+        +----------+     +----------+             |
-        | |                              |eth0                  |
-        | |                              |                      |
-        | +------------------------------+                      |
-        |                                                       |
-        |                                                       |
-        +-------------------------------------------------------+
+        | |                              |eth0                   |
+        | |                              |                       |
+        | +------------------------------+                       |
+        |                                                        |
+        |                                                        |
+        +--------------------------------------------------------+
 
 
 
 ```
 
 # Requirements
+ - Linux/MacOS operating system
+ - Python 3
  - 10GB disk storage
  - 2GB free RAM
  - Virtualbox
@@ -78,3 +80,20 @@ host-b                    running (virtualbox)
 `vagrant ssh switch`
 `vagrant ssh host-a`
 `vagrant ssh host-b`
+
+# Assignment
+This section describes the assignment, its requirements and the tasks the student has to complete.
+## Design Requirements
+- Hosts 1-a and 1-b are in a subnet (Hosts) that must be able to scale up to [host-subnet-size] usable addresses
+- Host 2-c is in a subnet (Hub) that needs to accommodate up to [hub-subnet-size] usable addresses
+- Host 2-c must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from Host-1-a and Host-1-b
+- No dynamic routing can be used
+- Routes must be as generic as possible (i.e. if a subnet has just one router assume that is the default gateway for all traffic)
+## Tasks
+- Fork the Github repository: https://github.com/dustnic/dncs-lab
+- Clone the repository
+- Run the initiator script (dncs-init)
+- Document the design by expanding this readme file
+- Implement the design by integrating the necessary commands into the VM startup scripts
+- Commit the changes and push to your own repository
+- Fill the answers.yml file

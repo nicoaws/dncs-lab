@@ -1,0 +1,14 @@
+FirstName: {{ FirstName }}
+LastName: {{ LastName }}
+MatriculationNumber: {{ MatriculationNumber }}
+AcademicYear: 2019-2020
+GitHubUrl: YourGithubRepositoryURL
+Subnets:
+  Hosts:
+    RequiredAddresses: {{ HostsSubnetRequiredAddresses }}
+    SubnetAddress: YourHostsSubnetAddress
+    SubnetPrefixLength: YourHostsSubnetPrefixLength
+  Hub:
+    RequiredAddresses: {{ HubSubnetRequiredAddresses }}
+    SubnetAddress: YourHubSubnetAddress
+    SubnetPrefixLength: YourHubSubnetPrefixLength
