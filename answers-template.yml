@@ -4,10 +4,14 @@ MatriculationNumber: {{ MatriculationNumber }}
 AcademicYear: 2019-2020
 GitHubUrl: YourGithubRepositoryURL
 Subnets:
-  Hosts:
-    RequiredAddresses: {{ HostsSubnetRequiredAddresses }}
-    SubnetAddress: YourHostsSubnetAddress
-    SubnetPrefixLength: YourHostsSubnetPrefixLength
+  HostsA:
+    RequiredAddresses: {{ HostsASubnetRequiredAddresses }}
+    SubnetAddress: YourHostsASubnetAddress
+    SubnetPrefixLength: YourHostsASubnetPrefixLength
+  HostsB:
+    RequiredAddresses: {{ HostsBSubnetRequiredAddresses }}
+    SubnetAddress: YourHostsBSubnetAddress
+    SubnetPrefixLength: YourHostsBSubnetPrefixLength
   Hub:
     RequiredAddresses: {{ HubSubnetRequiredAddresses }}
     SubnetAddress: YourHubSubnetAddress

@@ -4,12 +4,14 @@ import random
 import re
 
 TEMPLATE_FILE = 'answers-template.yml'
+README_FILE = 'README.md'
 OUTPUT_FILE = 'answers.yml'
 REPLACEMENT_DICT = { 
     'FirstName': 'first_name',
     'LastName':  'last_name',
     'MatriculationNumber': 'mat_number',
-    'HostsSubnetRequiredAddresses': 'host_subnet_addresses', 
+    'HostsASubnetRequiredAddresses': 'host_a_subnet_addresses', 
+    'HostsBSubnetRequiredAddresses': 'host_b_subnet_addresses', 
     'HubSubnetRequiredAddresses': 'hub_subnet_addresses'
 }
 
@@ -20,7 +22,8 @@ mat_number=str(input('Enter your Matriculation Nr.: '))
 random.seed(a=first_name+last_name+mat_number,
             version=2)
 
-host_subnet_addresses = str(random.randint(24, 520))
+host_a_subnet_addresses = str(random.randint(24, 520))
+host_b_subnet_addresses = str(random.randint(24, 520))
 hub_subnet_addresses = str(random.randint(24, 520))
 
 # Read template file
@@ -31,3 +34,11 @@ with open(TEMPLATE_FILE,'r') as template_file:
                 regex = r'\{\{ %s \}\}' % replacement_string
                 line=re.sub(regex,eval(replacement_value),line)
             output_file.write(line)
+
+# # Modify README.md file
+# with open(README_FILE,'wr') as readme_file:
+#     for line in readme_file.readlines():
+#         for replacement_string, replacement_value in REPLACEMENT_DICT.items():
+#             regex = r'\{\{ %s \}\}' % replacement_string
+#             line=re.sub(regex,eval(replacement_value),line)
+#         output_file.write(line)

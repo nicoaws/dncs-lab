@@ -84,8 +84,8 @@ host-b                    running (virtualbox)
 # Assignment
 This section describes the assignment, its requirements and the tasks the student has to complete.
 ## Design Requirements
-- Hosts 1-a and 1-b are in a subnet (*Hosts*) that must be able to scale up to [host-subnet-size] usable addresses
-- Host 2-c is in a subnet (*Hub*) that needs to accommodate up to [hub-subnet-size] usable addresses
+- Hosts 1-a and 1-b are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively {{ HostsASubnetRequiredAddresses }} and {{ HostsBSubnetRequiredAddresses }} usable addresses
+- Host 2-c is in a subnet (*Hub*) that needs to accommodate up to {{ HubSubnetRequiredAddresses }} usable addresses
 - Host 2-c must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from Host-1-a and Host-1-b
 - No dynamic routing can be used
 - Routes must be as generic as possible (i.e. if a subnet has just one router assume that is the default gateway for all traffic)
@@ -96,5 +96,6 @@ This section describes the assignment, its requirements and the tasks the studen
 - Run the initiator script (dncs-init)
 - Document the design by expanding this readme file
 - Implement the design by integrating the necessary commands into the VM startup scripts
+- Fill the answers.yml file where required
 - Commit the changes and push to your own repository
-- Fill the answers.yml file
+
