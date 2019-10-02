@@ -14,7 +14,6 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
     vb.customize ["modifyvm", :id, "--nicpromisc5", "allow-all"]
-    vb.memory = 512
     vb.cpus = 1
   end
   config.vm.define "router-1" do |router1|
@@ -23,6 +22,9 @@ Vagrant.configure("2") do |config|
     router1.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-1", auto_config: false
     router1.vm.network "private_network", virtualbox__intnet: "broadcast_router-inter", auto_config: false
     router1.vm.provision "shell", path: "common.sh"
+    router1.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
   config.vm.define "router-2" do |router2|
     router2.vm.box = "ubuntu/bionic64"
@@ -30,6 +32,9 @@ Vagrant.configure("2") do |config|
     router2.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-2", auto_config: false
     router2.vm.network "private_network", virtualbox__intnet: "broadcast_router-inter", auto_config: false
     router2.vm.provision "shell", path: "common.sh"
+    router2.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
   config.vm.define "switch" do |switch|
     switch.vm.box = "ubuntu/bionic64"
@@ -38,23 +43,35 @@ Vagrant.configure("2") do |config|
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
     switch.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
     switch.vm.provision "shell", path: "switch.sh"
+    switch.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
-  config.vm.define "host-1-a" do |hosta|
+  config.vm.define "host-a" do |hosta|
     hosta.vm.box = "ubuntu/bionic64"
-    hosta.vm.hostname = "host-1-a"
+    hosta.vm.hostname = "host-a"
     hosta.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
     hosta.vm.provision "shell", path: "common.sh"
+    hosta.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
-  config.vm.define "host-1-b" do |hostb|
+  config.vm.define "host-b" do |hostb|
     hostb.vm.box = "ubuntu/bionic64"
-    hostb.vm.hostname = "host-1-b"
+    hostb.vm.hostname = "host-b"
     hostb.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
     hostb.vm.provision "shell", path: "common.sh"
+    hostb.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
-  config.vm.define "host-2-c" do |hostc|
+  config.vm.define "host-c" do |hostc|
     hostc.vm.box = "ubuntu/bionic64"
-    hostc.vm.hostname = "host-2-c"
+    hostc.vm.hostname = "host-c"
     hostc.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-2", auto_config: false
     hostc.vm.provision "shell", path: "common.sh"
+    hostc.vm.provider "virtualbox" do |vb|
+      vb.memory = 256
+    end
   end
 end

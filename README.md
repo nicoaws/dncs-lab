@@ -20,7 +20,7 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |  G  |                      |                     +-----+----+
         |  E  |                      |eth1                 |          |
         |  M  |            +-------------------+           |          |
-        |  E  |        eth0|                   |           | host-2-c |
+        |  E  |        eth0|                   |           |  host-c  |
         |  N  +------------+      SWITCH       |           |          |
         |  T  |            |                   |           |          |
         |     |            +-------------------+           +----------+
@@ -31,7 +31,7 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |  A  |        +----------+     +----------+             |
         |  N  |        |          |     |          |             |
         |  T  |    eth0|          |     |          |             |
-        |     +--------+ host-1-a |     | host-1-b |             |
+        |     +--------+  host-a  |     |  host-b  |             |
         |     |        |          |     |          |             |
         |     |        |          |     |          |             |
         ++-+--+        +----------+     +----------+             |
@@ -79,6 +79,7 @@ host-b                    running (virtualbox)
 `vagrant ssh switch`
 `vagrant ssh host-a`
 `vagrant ssh host-b`
+`vagrant ssh host-c`
 
 # Assignment
 This section describes the assignment, its requirements and the tasks the student has to complete.
@@ -87,14 +88,16 @@ This section describes the assignment, its requirements and the tasks the studen
 - Host 2-c is in a subnet (*Hub*) that needs to accommodate up to {{ HubSubnetRequiredAddresses }} usable addresses
 - Host 2-c must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from Host-1-a and Host-1-b
 - No dynamic routing can be used
-- Routes must be as generic as possible (i.e. if a subnet has just one router assume that is the default gateway for all traffic)
+- Routes must be as generic as possible
 - The lab setup must be portable and executed just by launching the `vagrant up` command
+
 ## Tasks
 - Fork the Github repository: https://github.com/dustnic/dncs-lab
 - Clone the repository
 - Run the initiator script (dncs-init)
+- Implement the design by integrating the necessary commands into the VM startup scripts (create more if necessary)
+- Modify the Vagrantfile (if necessary)
 - Document the design by expanding this readme file
-- Implement the design by integrating the necessary commands into the VM startup scripts
 - Fill the answers.yml file where required
 - Commit the changes and push to your own repository
 
