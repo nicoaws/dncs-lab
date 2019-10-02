@@ -35,10 +35,13 @@ with open(TEMPLATE_FILE,'r') as template_file:
                 line=re.sub(regex,eval(replacement_value),line)
             output_file.write(line)
 
-# # Modify README.md file
-# with open(README_FILE,'wr') as readme_file:
-#     for line in readme_file.readlines():
-#         for replacement_string, replacement_value in REPLACEMENT_DICT.items():
-#             regex = r'\{\{ %s \}\}' % replacement_string
-#             line=re.sub(regex,eval(replacement_value),line)
-#         output_file.write(line)
+# Modify README.md file
+with open(README_FILE,'r') as readme_file:
+    readme_file_lines = readme_file.readlines()
+
+with open(README_FILE,'w') as readme_file:
+    for line in readme_file_lines:
+        for replacement_string, replacement_value in REPLACEMENT_DICT.items():
+            regex = r'\{\{ %s \}\}' % replacement_string
+            line=re.sub(regex,eval(replacement_value),line)
+        readme_file.write(line)
