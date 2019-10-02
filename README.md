@@ -47,7 +47,6 @@ This repository contains the Vagrant files required to run the virtual lab envir
 ```
 
 # Requirements
- - Linux/MacOS operating system
  - Python 3
  - 10GB disk storage
  - 2GB free RAM
