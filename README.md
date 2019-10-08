@@ -90,8 +90,8 @@ The assignment deliverable consists of a Github repository containing:
 - an updated answers.yml file containing the details of 
 
 ## Design Requirements
-- Hosts 1-a and 1-b are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively {{ HostsASubnetRequiredAddresses }} and {{ HostsBSubnetRequiredAddresses }} usable addresses
-- Host 2-c is in a subnet (*Hub*) that needs to accommodate up to {{ HubSubnetRequiredAddresses }} usable addresses
+- Hosts 1-a and 1-b are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively 384 and 198 usable addresses
+- Host 2-c is in a subnet (*Hub*) that needs to accommodate up to 483 usable addresses
 - Host 2-c must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from Host-1-a and Host-1-b
 - No dynamic routing can be used
 - Routes must be as generic as possible

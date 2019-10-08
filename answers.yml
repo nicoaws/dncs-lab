@@ -1,0 +1,18 @@
+FirstName: Giovanna
+LastName: Nart
+MatriculationNumber: 194958
+AcademicYear: 2019-2020
+GitHubUrl: https://github.com/giovannanart/dncs-lab
+Subnets:
+  HostsA:
+    RequiredAddresses: 384
+    SubnetAddress: YourHostsASubnetAddress
+    SubnetPrefixLength: YourHostsASubnetPrefixLength
+  HostsB:
+    RequiredAddresses: 198
+    SubnetAddress: YourHostsBSubnetAddress
+    SubnetPrefixLength: YourHostsBSubnetPrefixLength
+  Hub:
+    RequiredAddresses: 483
+    SubnetAddress: YourHubSubnetAddress
+    SubnetPrefixLength: YourHubSubnetPrefixLength
