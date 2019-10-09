@@ -117,4 +117,4 @@ The assignment deliverable consists of a Github repository containing:
 
 
 # Design
-[ Your work goes here ]
+Decided to give Subnet Host-a the subnet mask 255.255.254.0 because it must be able to scale up to 384 host, so we must choose ...
