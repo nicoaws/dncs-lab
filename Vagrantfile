@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
     router1.vm.hostname = "router-1"
     router1.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-1", auto_config: false
     router1.vm.network "private_network", virtualbox__intnet: "broadcast_router-inter", auto_config: false
-    router1.vm.provision "shell", path: "common.sh"
+    router1.vm.provision "shell", path: "router1.sh"
     router1.vm.provider "virtualbox" do |vb|
       vb.memory = 256
     end
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
     router2.vm.hostname = "router-2"
     router2.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-2", auto_config: false
     router2.vm.network "private_network", virtualbox__intnet: "broadcast_router-inter", auto_config: false
-    router2.vm.provision "shell", path: "common.sh"
+    router2.vm.provision "shell", path: "router2.sh"
     router2.vm.provider "virtualbox" do |vb|
       vb.memory = 256
     end
@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
     hosta.vm.box = "ubuntu/bionic64"
     hosta.vm.hostname = "host-a"
     hosta.vm.network "private_network", virtualbox__intnet: "broadcast_host_a", auto_config: false
-    hosta.vm.provision "shell", path: "common.sh"
+    hosta.vm.provision "shell", path: "hosta.sh"
     hosta.vm.provider "virtualbox" do |vb|
       vb.memory = 256
     end
@@ -60,7 +60,7 @@ Vagrant.configure("2") do |config|
     hostb.vm.box = "ubuntu/bionic64"
     hostb.vm.hostname = "host-b"
     hostb.vm.network "private_network", virtualbox__intnet: "broadcast_host_b", auto_config: false
-    hostb.vm.provision "shell", path: "common.sh"
+    hostb.vm.provision "shell", path: "hostb.sh"
     hostb.vm.provider "virtualbox" do |vb|
       vb.memory = 256
     end
@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
     hostc.vm.box = "ubuntu/bionic64"
     hostc.vm.hostname = "host-c"
     hostc.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-2", auto_config: false
-    hostc.vm.provision "shell", path: "common.sh"
+    hostc.vm.provision "shell", path: "hostc.sh"
     hostc.vm.provider "virtualbox" do |vb|
       vb.memory = 256
     end
