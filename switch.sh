@@ -5,6 +5,7 @@ apt-get install -y openvswitch-common openvswitch-switch apt-transport-https ca-
 
 # Startup commands for switch go here
 sudo su
+ovs-vsctl add-br switch
 ovs-vsctl add-port switch enp0s8
 ovs-vsctl add-port switch enp0s9 tag=1
 ovs-vsctl add-port switch enp0s10 tag=2
