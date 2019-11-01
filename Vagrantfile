@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
     hostc.vm.network "private_network", virtualbox__intnet: "broadcast_router-south-2", auto_config: false
     hostc.vm.provision "shell", path: "hostc.sh"
     hostc.vm.provider "virtualbox" do |vb|
-      vb.memory = 256
+      vb.memory = 512
     end
   end
 end
