@@ -11,7 +11,7 @@ The requirments are the following:
 
 # Design
 ## IP addresses
-For the given network topology we need 4 subnet: host-a, host-b, hub and the subnet that includes the enp0s9 interfaces of router-1 and router-2, that I'll call Y for semplicity. We must calculate how many ips each subnet needs, considering that every subnet has 2 ip addresses that are reserved, so host-a will need 384+2=386 ip addresses, corresponding to log_2⁡(386)=8.59⟹9 bits for host identification and 32-9=23 bits of network prefix. We can extend the reasoning for the other subnets, and then we decide 4 ip arbitrary choosed from ipv4 reserved private ranges of addresses.
+For the given network topology we need 4 subnets: host-a, host-b, hub and the subnet that includes the enp0s9 interfaces of router-1 and router-2, that I'll call Y for semplicity. We must calculate how many ips each subnet needs, considering that every subnet has 2 ip addresses that are reserved, so host-a will need 384+2=386 ip addresses, corresponding to log_2⁡(386)=8.59⟹9 bits for host identification and 32-9=23 bits of network prefix. We can extend the reasoning for the other subnets, and then we decide 4 ip arbitrary choosed from ipv4 reserved private ranges of addresses.
 
 |  Subnet  |  Address  |   Subnet Mask  | 
 |----------|-----------|----------------|
@@ -20,6 +20,25 @@ For the given network topology we need 4 subnet: host-a, host-b, hub and the sub
 | **Hub**  |192.168.0.0|  255.255.254.0 |
 |  **Y**   |192.168.2.0| 255.255.255.252|
 
+## VLANs
+To achieve the task, we must configurate Host-a and Host-b as virtual LANs. This means that we must split the switch's broadcast domain because Host-a and Host-b would be in the same collision domain. In this way, even if the two subnets are phisically linked, they become virtually separated. This can be done adding 2 tagged ports to the switch and telling router-1 to add interfaces enp0s8.1 and enp0s8.2 respectively referred to tag 1 and tag 2.
+
+| VLAN | tag|
+|------|----|
+|Host-a|1   |
+|Host-b|2   |
+
+- switch.sh
+...
+9  ovs-vsctl add-port switch enp0s9 tag=1
+10 ovs-vsctl add-port switch enp0s10 tag=2
+...
+- router-1.sh
+...
+
+9  ip link add link enp0s8 name enp0s8.1 type vlan id 1
+10 ip link add link enp0s8 name enp0s8.2 type vlan id 2
+...
 
 
         +-----------------------------------------------------+
