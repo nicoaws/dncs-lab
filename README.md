@@ -25,20 +25,20 @@ To achieve the task, we must configurate Host-a and Host-b as virtual LANs. This
 
 | VLAN | tag|
 |------|----|
-|Host-a|1   |
-|Host-b|2   |
+|Host-A|1   |
+|Host-B|2   |
 
 - switch.sh
-...
+```
 9  ovs-vsctl add-port switch enp0s9 tag=1
 10 ovs-vsctl add-port switch enp0s10 tag=2
-...
+```
 - router-1.sh
-...
+```
 
 9  ip link add link enp0s8 name enp0s8.1 type vlan id 1
 10 ip link add link enp0s8 name enp0s8.2 type vlan id 2
-...
+```
 
 
         +-----------------------------------------------------+
