@@ -1,5 +1,5 @@
 export DEBIAN_FRONTEND=noninteractive
-# Startup commands go here
+
 sudo su
 apt-get update
 apt-get install -y tcpdump --assume-yes

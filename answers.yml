@@ -6,13 +6,13 @@ GitHubUrl: https://github.com/giovannanart/dncs-lab
 Subnets:
   HostsA:
     RequiredAddresses: 384
-    SubnetAddress: YourHostsASubnetAddress
-    SubnetPrefixLength: YourHostsASubnetPrefixLength
+    SubnetAddress: 192.168.4.0 #dubbio su lunghezza del prefisso della sottorete: metto la subnet mask anche qui o soltanto sotto?
+    SubnetPrefixLength: 23
   HostsB:
     RequiredAddresses: 198
-    SubnetAddress: YourHostsBSubnetAddress
-    SubnetPrefixLength: YourHostsBSubnetPrefixLength
+    SubnetAddress: 192.168.6.0
+    SubnetPrefixLength: 24
   Hub:
     RequiredAddresses: 483
-    SubnetAddress: YourHubSubnetAddress
-    SubnetPrefixLength: YourHubSubnetPrefixLength
+    SubnetAddress: 192.168.0.0
+    SubnetPrefixLength: 23

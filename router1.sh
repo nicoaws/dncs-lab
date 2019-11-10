@@ -1,5 +1,4 @@
 export DEBIAN_FRONTEND=noninteractive
-# Startup commands go here
 sudo su
 apt-get update
 apt-get install -y tcpdump --assume-yes
@@ -14,8 +13,6 @@ ip link set dev enp0s8 up
 ip link set dev enp0s8.1 up
 ip link set dev enp0s8.2 up
 ip link set dev enp0s9 up
-
-
 
 ip add add 192.168.4.2/23 dev enp0s8.1
 ip add add 192.168.6.2/24 dev enp0s8.2

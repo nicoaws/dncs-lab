@@ -1,6 +1,4 @@
 export DEBIAN_FRONTEND=noninteractive
-# Startup commands go here
-
 sudo su
 apt update
 apt install apt-transport-https ca-certificates curl software-properties-common
@@ -12,7 +10,19 @@ apt install -y docker-ce
 docker pull dustnic82/nginx-test
 
 mkdir /www
-echo -e '<!DOCTYPE html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title>DNCS LAB PROJECT</title>\n</head>\n<body>\n    <h1>DNCS LAB</h1>\n    <h3>Student: Giovanna Nart</h3>\n    <h3>Immatriculation number: 194958</h3>\n</body>\n</html>' > /www/index.html
+echo -e '
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title>DNCS LAB PROJECT A.Y. 2019/2020</title> </head>
+    <body>
+        <h1>DNCS LAB</h1>   
+        <h3>Student: Giovanna Nart</h3>
+        <h3>Badge number: 194958</h3>
+        <p> This is just a simple testing page</p>
+    </body>
+    </html> 
+' > /www/index.html
 
 docker run --name nginx -v /www:/usr/share/nginx/html -d -p 80:80 dustnic82/nginx-test
 
