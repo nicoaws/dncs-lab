@@ -20,6 +20,8 @@ For the given network topology we need 4 subnet: host-a, host-b, hub and the sub
 | **Hub**  |192.168.0.0|  255.255.254.0 |
 |  **Y**   |192.168.2.0| 255.255.255.252|
 
+
+
         +-----------------------------------------------------+
         |                                                     |
         |                                                     |eth0
