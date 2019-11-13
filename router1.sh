@@ -18,4 +18,4 @@ ip add add 192.168.4.2/23 dev enp0s8.1
 ip add add 192.168.6.2/24 dev enp0s8.2
 ip add add 192.168.2.1/30 dev enp0s9
 
-ip route add 192.168.0.0/23 via 192.168.2.2
+ip route add 192.168.8.0/23 via 192.168.2.2

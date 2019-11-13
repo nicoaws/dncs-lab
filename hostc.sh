@@ -26,7 +26,7 @@ echo -e '
 
 docker run --name nginx -v /www:/usr/share/nginx/html -d -p 80:80 dustnic82/nginx-test
 
-ip addr add 192.168.1.1/23 dev enp0s8
+ip addr add 192.168.8.1/23 dev enp0s8
 ip link set dev enp0s8 up
 ip route del default
-ip route add 192.168.0.0/16 via 192.168.1.2
+ip route add 192.168.4.0/22 via 192.168.8.2
