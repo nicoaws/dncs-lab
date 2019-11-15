@@ -12,7 +12,7 @@ Design of Networks and Communication Systems
   - [Network map configured with IP](#network-map-configured-with-ip)
 - [Implementation](#implementation)
 - [How-to](#how-to)
--[Authors and acknowledgment](#authors-and-acknowledgment)
+- [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Assignment
 
@@ -32,8 +32,6 @@ Please see https://github.com/dustnic/dncs-lab for more details.
 ## Network map
 
 ```
-
-
         +-----------------------------------------------------+
         |                                                     |
         |                                                     |eth0
@@ -71,9 +69,6 @@ Please see https://github.com/dustnic/dncs-lab for more details.
         |                                                        |
         |                                                        |
         +--------------------------------------------------------+
-
-
-
 ```
 
 ## Network Configuration
@@ -114,11 +109,11 @@ We decided to use a private pool of IP addresses.: we choose the 172.16.0.0/12 c
 we recap the addressing configuration used:
 
 
-<div align="center"> Network </div> |  <div align="center"> Netmask</div>|  <div align="center"> Host/Net needed</div>	 | <div align="center"> Host/Net available </div> | <div align="center"> Address</div>| <div align="center"> Host Min </div> | <div align="center"> Host Max </div>       |
+<div align="center"> Network </div> |  <div align="center"> Netmask </div>|  <div align="center"> Host/Net needed </div>	 | <div align="center"> Host/Net available </div> | <div align="center"> Address</div>| <div align="center"> Host Min </div> | <div align="center"> Host Max </div> |
 :-----: | :-----------:        |  :---------:  | :----------:  | :--------------: | :-------:   | :------:      |
 A	      | /23 – 255.255.254.0	 | 312	         | 510	         | 172.16.0.0/23	  | 172.16.0.1 | 172.16.1.254 |
 B	      | /24 – 255.255.255.0 |	176	         | 254	         | 172.16.2.0/24	  |172.16.2.1  | 172.16.2.254 |
-C      | /26 – 255.255.255.192	 | 49	         | 62	         | 172.16.3.0/26	  |172.16.3.1  | 172.16.3.62 |
+C       | /26 – 255.255.255.192	 | 49	         | 62	         | 172.16.3.0/26	  |172.16.3.1  | 172.16.3.62 |
 D	      | /30 – 255.255.255.252|	2	           | 2	           | 172.16.3.64/30 |172.16.3.65|	172.16.3.66 |
 
 ### VLANs
@@ -453,4 +448,4 @@ Commercial support is available at
 # Authors and acknowledgment
 Layachi Sara and Neri Carlotta.
 
-This project is powered by dustnic, that we want to thank because he permit us to fork his files and expand it as a project.
+This project is powered by dustnic, that we want to thank because he permits us to fork his files and expand it as a project.
