@@ -1,5 +1,5 @@
 # DNCS-LAB
-Design of Networks and Communication Systems
+Design of Networks and Communication Systems, University of Trento
 
 ## Table of contents:
 - [Assignment](#assignment)
@@ -11,12 +11,18 @@ Design of Networks and Communication Systems
   - [VLANs](#vlans)
   - [Network map configured with IP](#network-map-configured-with-ip)
 - [Implementation](#implementation)
+  - [router-1.sh](#irouter-1.sh)
+  - [router-2.sh](#irouter-2.sh)
+  - [switch.sh](#switch.sh)
+  - [host-a.sh](#host-a.sh)
+  - [host-b.sh](#host-b.sh)
+  - [host-c.sh](#host-c.sh)
 - [How-to](#how-to)
 - [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Assignment
 
-Design a functioning network where any host configured and attached to router-1 (through switch) can browse a webserver hosted on host-c, attached to router-2, satisfying the requirements described below.
+Design a functioning network where any host configured and attached to router-1 (through switch) can browse a webserver hosted on host-c, attached to router-2, in order to satisfy the requirements described below.
 
 Please see https://github.com/dustnic/dncs-lab for more details.
 
@@ -99,22 +105,21 @@ So, making our computation, we obtain the following pool of available IPs:
 -	**SUBNET C**: **/26** network mask provides **62 addresses** (2<sup>6</sup>-2)
 -	**SUBNET D**: **/30** network mask provides **2 addresses** (2<sup>2</sup>-2)
 
-Note that we discard the approach to allocate to each of our subnet only the number of IP addresses that the design requirements requires. Even if this solution guarantees the best ratio of the total IP addresses used and all the ones available and so the smallest loss of IP address, on the other hand can cause several problem when dealing with a real network that has to scale up (in that case we have to change both the network mask and the routing rules to allow the connection of new hosts in the network that need new IP addresses reserved).
+Note that we have discarded the approach to allocate to each of our subnet only the number of IP addresses that the design requirements requires. Even if this solution guarantees the best ratio of the total IP addresses used and all the ones available and so the smallest loss of IP address, on the other hand can cause several problem when dealing with a real network that has to scale up (in that case we have to change both the network mask and the routing rules to allow the connection of new hosts in the network that need new IP addresses reserved).
 
 ### Subnets
 
-We decided to use a private pool of IP addresses.: we choose the 172.16.0.0/12 class of IP addresses, since there is no specification in the design requirements about the addresses to be used, bt any other private classes can be used.
+We decided to use a private pool of IP addresses: we choose the 172.16.0.0/12 class of IP addresses, since there is no specification in the design requirements about the addresses to be used, but any other private classes can be used.
 
 
 we recap the addressing configuration used:
 
-
-<div align="center"> Network </div> |  <div align="center"> Netmask </div>|  <div align="center"> Host/Net needed </div>	 | <div align="center"> Host/Net available </div> | <div align="center"> Address</div>| <div align="center"> Host Min </div> | <div align="center"> Host Max </div> |
-:-----: | :-----------:        |  :---------:  | :----------:  | :--------------: | :-------:   | :------:      |
-A	      | /23 – 255.255.254.0	 | 312	         | 510	         | 172.16.0.0/23	  | 172.16.0.1 | 172.16.1.254 |
-B	      | /24 – 255.255.255.0 |	176	         | 254	         | 172.16.2.0/24	  |172.16.2.1  | 172.16.2.254 |
-C       | /26 – 255.255.255.192	 | 49	         | 62	         | 172.16.3.0/26	  |172.16.3.1  | 172.16.3.62 |
-D	      | /30 – 255.255.255.252|	2	           | 2	           | 172.16.3.64/30 |172.16.3.65|	172.16.3.66 |
+| Network |        Netmask        | Host/Net needed | Host/Net available |     Address    |   Host Min  |   Host Max   |
+|:-------:|:---------------------:|:---------------:|:------------------:|:--------------:|:-----------:|:------------:|
+|    A    |  /23 – 255.255.254.0  |       312       |         510        |  172.16.0.0/23 |  172.16.0.1 | 172.16.1.254 |
+|    B    |  /24 – 255.255.255.0  |       176       |         254        |  172.16.2.0/24 |  172.16.2.1 | 172.16.2.254 |
+|    C    | /26 – 255.255.255.192 |        49       |         62         |  172.16.3.0/26 |  172.16.3.1 |  172.16.3.62 |
+|    D    | /30 – 255.255.255.252 |        2        |          2         | 172.16.3.64/30 | 172.16.3.65 |  172.16.3.66 |
 
 ### VLANs
 
@@ -126,25 +131,25 @@ We setup the link between the router and both LANs in trunk mode, to be able to 
 
 We briefly recap the configuration of Valns:
 
-<div align="center"> Subnet </div> |	<div align="center"> Interface </div> |<div align="center"> Host </div> | <div align="center"> Vlan tag </div>|<div align="center"> IP </div>|
-:------------------------------------:|:--------------------------------:|:-----------------------------------:|:-----------------------------:|:--------------------------------:
-A	                            | enp0s8.10	                       | router-1                                |10	                  |172.16.0.1
-C	                              | enp0s8.20	                       | router-1	                               | 20                  |172.16.3.1
+| Subnet | Interface |   Host   | Vlan tag |     IP     |
+|:------:|:---------:|:--------:|:--------:|:----------:|
+|    A   | enp0s8.10 | router-1 |    10    | 172.16.0.1 |
+|    C   | enp0s8.20 | router-1 |    20    | 172.16.3.1 |
 
 
 ## Network map configured with IP
-Finally we can reacp all the configurations maded.
+Finally we can reacp all the configurations maded:
 
-<div align="center"> Host </div> |<div align="center"> Interface </div> | <div align="center"> VLAN TAG </div> | <div align="center"> IP adress </div>| <div align="center"> Description</div> |
-:------------------------------------:|:------------------------------------:|:------------------------------:|:-----------------------------------:|:---------------|
-router-1                                 |enp0s8.10	                            |10                              |172.16.0.1	                         |Default gateway for network A                |
-	                               |enp0s8.20	                            |20                              |172.16.3.1	                         |Default gateway for network B              |
-	                               |enp0s9	                              |None                            |172.16.3.65	| Link to router-2|
-                                 host-a	|enp0s8	|None |172.16.0.2 | Link with access port on the switch|
-                                 host-b	|enp0s8	|None|172.16.3.2	| Link with access port on the switch|
-router-2	                       |enp0s9	                              |None                            |172.16.3.66	|Link to router-1|
-	                               |enp0s8	|None | 172.16.2.1	| Link to host-c|
-host-c	|enp0s8	|None| 172.16.2.2	|Link to router-2|
+|   Host   | Interface | Vlan tag |  IP address |             Description             |
+|:--------:|:---------:|:--------:|:-----------:|:-----------------------------------:|
+| router-1 | enp0s8.10 |    10    |  172.16.0.1 |    Default gateway for network A    |   
+|          | enp0s8.20 |    20    |  172.16.3.1 |    Default gateway for network C    |   
+|          |   enp0s9  |   None   | 172.16.3.65 |           Link to router-2          |   
+|  host-a  |   enp0s8  |   None   |  172.16.0.2 | Link with access port on the switch |   
+|  host-b  |   enp0s8  |   None   |  172.16.3.2 | Link with access port on the switch |   
+| router-2 |   enp0s9  |   None   | 172.16.3.66 |           Link to router-1          |   
+|          |   enp0s8  |   None   |  172.16.2.1 |            Link to host-c           |   
+|  host-c  |   enp0s8  |   None   |  172.16.2.2 |           Link to router-2          |   
 
 
         +----------------------------------------------------------------------+
@@ -189,7 +194,7 @@ host-c	|enp0s8	|None| 172.16.2.2	|Link to router-2|
         +----------------------------------------------------------------------+
 # Implementation
 
-Now that we have defined the ip adresses, we configurate the interfaces and sets up the static routing for all devices.
+Now that we have defined the ip adresses, we have to configurate the interfaces and sets up the static routing for all devices.
 ## router-1.sh
 For router-1 we set up also the vlans.
 ```
@@ -326,7 +331,7 @@ ip route del default
 ip route add default via 172.16.3.1
 ```
 ## host-c.sh
-For host-c, as it have to run a docker image, we also installed docker, and modifyied the Vagrantfile increasing the memory `vb.memory = 512`.
+For host-c, as it have to run a docker image, we also installed docker, and modified the Vagrantfile increasing the memory `vb.memory = 512`.
 ```
 export DEBIAN_FRONTEND=noninteractive
 sudo su
@@ -387,11 +392,9 @@ Now use `sudo su` With this command you have permissions to execute all the comm
 A useful commands is: `ifconfig` to have some informations about the ethernet interfaces.
 
 - Reachability
-Suppose
-to ping host-a: `ping 172.16.0.2`
-```
-Mettere risultato
-```
+
+Suppose that we are into host-a, via `vagrant ssh host-a`, and we want to ping host-b, and to send a request for "docker.html" of the webserver running on host-2-c:
+
 to ping host-b: `ping 172.16.3.2`
 ```
 vagrant@host-a:~$ ping 172.16.3.2
@@ -404,18 +407,7 @@ PING 172.16.3.2 (172.16.3.2) 56(84) bytes of data.
 rtt min/avg/max/mdev = 1.358/1.620/1.883/0.265 ms
 
 ```
-to ping host-c: `ping 172.16.2.2`
-```
-vagrant@host-a:~$ ping 172.16.2.2
-PING 172.16.2.2 (172.16.2.2) 56(84) bytes of data.
-64 bytes from 172.16.2.2: icmp_seq=1 ttl=62 time=2.48 ms
-64 bytes from 172.16.2.2: icmp_seq=2 ttl=62 time=2.62 ms
-^C
---- 172.16.2.2 ping statistics ---
-2 packets transmitted, 2 received, 0% packet loss, time 1002ms
-rtt min/avg/max/mdev = 2.489/2.557/2.626/0.085 ms
-```
-to send a request for "docker.html" of the webserver running on host-2-c:`curl 172.16.2.2`
+to send the docker request :`curl 172.16.2.2`
 ```
 vagrant@host-a:~$ curl 172.16.2.2
 <!DOCTYPE html>
@@ -444,8 +436,8 @@ Commercial support is available at
 </body>
 </html>
 ```
-
+the same can be done with all devices, the Network map configured with IP shows all informations needed.
 # Authors and acknowledgment
 Layachi Sara and Neri Carlotta.
 
-This project is powered by dustnic, that we want to thank because he permits us to fork his files and expand it as a project.
+This work is based on the material provided in https://github.com/dustnic/dncs-lab.

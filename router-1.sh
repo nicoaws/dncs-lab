@@ -32,5 +32,5 @@ ip link set enp0s8.20 up
 #STATIC ROUTING
 #deletes the dafault gateway
 ip route del default
-#creates a static route to reach subnet C via router-2
+#creates a static route to reach subnet B via router-2
 ip route add 172.16.2.0/24 via 172.16.3.66 dev enp0s9

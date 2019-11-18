@@ -23,5 +23,5 @@ ip link set enp0s8 up
 #STATIC ROUTING
 #creates a static route to reach subnet A via router-2
 ip route add 172.16.0.0/23 via 172.16.2.1
-#creates a static route to reach subnet C via router-2
+#creates a static route to reach subnet B via router-2
 ip route add 172.16.3.0/26 via 172.16.2.1
