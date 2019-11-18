@@ -107,15 +107,17 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 
 ## Routing Tables
 
-- Host-A                                     
+- Host-A   
+
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   |192.168.4.2|   0.0.0.0      | 
-|  10.0.2.0  |  0.0.0.0  | 255.255.255.0  |
+|  10.0.2.0   |  0.0.0.0  | 255.255.255.0  |
 |  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
 | 192.168.4.0 |  0.0.0.0  | 255.255.254.0  |
 
-- Host-B                                     
+- Host-B    
+
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   |192.168.6.2|   0.0.0.0      | 
@@ -123,7 +125,8 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 |  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
 | 192.168.6.0 |  0.0.0.0  | 255.255.255.0  |
 
-- Host-C                                     
+- Host-C      
+                               
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   |192.168.8.2|   0.0.0.0      | 
@@ -132,7 +135,8 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 | 172.17.0.0  |  0.0.0.0  |  255.255.0.0   |
 | 192.168.8.0 |  0.0.0.0  | 255.255.254.0  |
 
-- router-1                                    
+- router-1                
+
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   | 10.0.2.2  |   0.0.0.0      | 
@@ -143,7 +147,8 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 | 192.168.6.0 |  0.0.0.0  |  255.255.255.0 |
 | 192.168.8.0 |192.168.2.2|  255.255.254.0 |
 
-- router-2                                     
+- router-2                             
+
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   |  10.0.2.2 |   0.0.0.0      | 
