@@ -64,7 +64,7 @@ I gave an IP to every interface of routers, Host-A, Host-B and Host-C according 
         +------------------------------------------------------------+
 
 
-## Routing
+# Routing
 I gave Host-A, Host-B and Host-C the respective default gateway, and I added in router-1 and router-2 the necessary commands to tell the routers which subnets are reachable from which interface.
 
 |  Subnet  |Default Gateway|
@@ -85,7 +85,7 @@ I gave Host-A, Host-B and Host-C the respective default gateway, and I added in 
 ```
 
 
-## VLANs
+# VLANs
 To achieve the task, we must configure Host-A and Host-B as virtual LANs. This means that we must split the switch's broadcast domain because Host-A and Host-B would be in the same collision domain. In this way, even if the two subnets are phisically linked, they become virtually separated. This can be done adding 2 tagged ports to the switch and telling router-1 to add interfaces enp0s8.1 and enp0s8.2 respectively referred to tag 1 and tag 2.
 
 | VLAN |tag|
@@ -126,7 +126,7 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 | 192.168.6.0 |  0.0.0.0  | 255.255.255.0  |
 
 - Host-C      
-                               
+
 | Destination |  Gateway|   Subnet Mask    |   
 |-------------|-----------|----------------|
 |   0.0.0.0   |192.168.8.2|   0.0.0.0      | 
@@ -168,7 +168,7 @@ While I worked at the project I had the necessity to expand the RAM of Host-C fr
 
 ## Testing 
 Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
-If we want to check connectivity between Host-B and Host-C we can type the following commands in the terminal, after the vagrant up has succesfully been done.
+Example of checking connectivity between Host-B and Host-C, after the vagrant up has succesfully been done.
 ```
 vagrant ssh host-b
 ping 192.168.8.1
@@ -187,4 +187,20 @@ PING 192.168.8.1 (192.168.8.1) 56(84) bytes of data.
 --- 192.168.8.1 ping statistics ---
 19 packets transmitted, 19 received, 0% packet loss, time 18039ms
 rtt min/avg/max/mdev = 1.165/1.713/2.458/0.299 ms
+```
+To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are in Host-B yet, we only have to type ```curl 192.168.8.1```
+
+```
+vagrant@host-b:~$ curl 192.168.8.1
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title>DNCS LAB PROJECT A.Y. 2019/2020</title> </head>
+    <body>
+        <h1>DNCS LAB</h1>   
+        <h3>Student: Giovanna Nart</h3>
+        <h3>Badge number: 194958</h3>
+        <p> This is just a simple testing page</p>
+    </body>
+    </html> 
 ```
