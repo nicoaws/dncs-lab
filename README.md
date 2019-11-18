@@ -75,7 +75,7 @@ I gave Host-A, Host-B and Host-C the respective default gateway, and I added in 
 
 - router-1.sh
 ```
-21ip route add 192.168.8.0/23 via 192.168.2.2
+21 ip route add 192.168.8.0/23 via 192.168.2.2
 ```
 
 - router-2.sh
@@ -105,6 +105,55 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 10 ip link add link enp0s8 name enp0s8.2 type vlan id 2
 ```
 
+## Routing Tables
+
+- Host-A                                     
+| Destination |  Gateway|   Subnet Mask    |   
+|-------------|-----------|----------------|
+|   0.0.0.0   |192.168.4.2|   0.0.0.0      | 
+|  10.0.2.0  |  0.0.0.0  | 255.255.255.0  |
+|  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
+| 192.168.4.0 |  0.0.0.0  | 255.255.254.0  |
+
+- Host-B                                     
+| Destination |  Gateway|   Subnet Mask    |   
+|-------------|-----------|----------------|
+|   0.0.0.0   |192.168.6.2|   0.0.0.0      | 
+|  10.0.2.0   |  0.0.0.0  | 255.255.255.0  |
+|  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
+| 192.168.6.0 |  0.0.0.0  | 255.255.255.0  |
+
+- Host-C                                     
+| Destination |  Gateway|   Subnet Mask    |   
+|-------------|-----------|----------------|
+|   0.0.0.0   |192.168.8.2|   0.0.0.0      | 
+|  10.0.2.0   |  0.0.0.0  | 255.255.255.0  |
+|  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
+| 172.17.0.0  |  0.0.0.0  |  255.255.0.0   |
+| 192.168.8.0 |  0.0.0.0  | 255.255.254.0  |
+
+- router-1                                    
+| Destination |  Gateway|   Subnet Mask    |   
+|-------------|-----------|----------------|
+|   0.0.0.0   | 10.0.2.2  |   0.0.0.0      | 
+|  10.0.2.0   |  0.0.0.0  | 255.255.255.0  |
+|  10.0.2.2   |  0.0.0.0  |255.255.255.255 |
+| 192.168.2.0 |  0.0.0.0  | 255.255.255.252|
+| 192.168.4.0 |  0.0.0.0  | 255.255.254.0  |
+| 192.168.6.0 |  0.0.0.0  |  255.255.255.0 |
+| 192.168.8.0 |192.168.2.2|  255.255.254.0 |
+
+- router-2                                     
+| Destination |  Gateway|   Subnet Mask    |   
+|-------------|-----------|----------------|
+|   0.0.0.0   |  10.0.2.2 |   0.0.0.0      | 
+|   10.0.2.0  |  0.0.0.0  | 255.255.255.0  |
+|   10.0.2.2  |  0.0.0.0  |255.255.255.255 |
+| 192.168.2.0 |  0.0.0.0  |255.255.255.252 |
+| 192.168.4.0 |192.168.2.1|255.255.254.0   |
+| 192.168.6.0 |192.168.2.1|255.255.255.0   |
+| 192.168.8.0 |  0.0.0.0  |255.255.254.0   |
+
 ## Web Server
 Host-C must run a docker image, so we need to install docker in Host-C and then pull dustnic82/nginx-test image (as specified in the requirments). This has been done in lines 5 to 10 in hostc.sh file.
 In lines 12 to 25 I implement a simple web server configuration in html that will be downloaded in the following command at line 27.
@@ -112,3 +161,25 @@ In lines 12 to 25 I implement a simple web server configuration in html that wil
 ## Vagrantfile changes
 While I worked at the project I had the necessity to expand the RAM of Host-C from 256 to 512 MB. Furthermore I modified the Vagrantfile because I put the specific scripts that I created instead of the generic "common.sh", in the path of each virtual machine.
 
+## Testing 
+Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
+If we want to check connectivity between Host-B and Host-C we can type the following commands in the terminal, after the vagrant up has succesfully been done.
+```
+vagrant ssh host-b
+ping 192.168.8.1
+
+```
+obtaining something like
+```
+vagrant@host-b:~$ ping 192.168.8.1
+PING 192.168.8.1 (192.168.8.1) 56(84) bytes of data.
+64 bytes from 192.168.8.1: icmp_seq=1 ttl=62 time=2.45 ms
+64 bytes from 192.168.8.1: icmp_seq=2 ttl=62 time=1.72 ms
+64 bytes from 192.168.8.1: icmp_seq=3 ttl=62 time=1.34 ms
+64 bytes from 192.168.8.1: icmp_seq=4 ttl=62 time=1.51 ms
+64 bytes from 192.168.8.1: icmp_seq=5 ttl=62 time=1.57 ms
+...
+--- 192.168.8.1 ping statistics ---
+19 packets transmitted, 19 received, 0% packet loss, time 18039ms
+rtt min/avg/max/mdev = 1.165/1.713/2.458/0.299 ms
+```
