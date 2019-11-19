@@ -10,7 +10,7 @@
 - [Testing](#testing)
 
 # Assignment and Design Requirments 
-The project is assigned from Nicola Arnoldi, and it's one of the two projects required for "Progettazione di reti e sistemi di comunicazione" at the faculty of Information and Comunication Engeneering, at the University of Trento.
+The project is assigned by Nicola Arnoldi, and it's one of the two projects required for "Progettazione di reti e sistemi di comunicazione" at the faculty of Information and Comunication Engeneering, at the University of Trento.
 The requirments are the following:
 - Hosts 1-a and 1-b are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively 384 and 198 usable addresses
 - Host 2-c is in a subnet (*Hub*) that needs to accommodate up to 483 usable addresses
@@ -148,7 +148,7 @@ I gave Host-A, Host-B and Host-C the respective default gateway, and I added in 
 
 
 # VLANs
-To achieve the task, we must configure Host-A and Host-B as virtual LANs. This means that we must split the switch's broadcast domain because Host-A and Host-B would be in the same collision domain. In this way, even if the two subnets are phisically linked, they become virtually separated. This can be done adding 2 tagged ports to the switch and telling router-1 to add interfaces enp0s8.1 and enp0s8.2 respectively referred to tag 1 and tag 2.
+To achieve the task, we must configure Host-A and Host-B as virtual LANs. This means that we must split the switch's broadcast domain because Host-A and Host-B would be in the same collision domain. In this way, even if the two subnets are phisically linked, they become virtually separated. This can be done by adding 2 tagged ports to the switch and telling router-1 to add interfaces enp0s8.1 and enp0s8.2 respectively referred to tag 1 and tag 2.
 
 | VLAN |tag|
 |------|---|
@@ -223,7 +223,7 @@ VM, run `vagrant status NAME`.
 ```
 
 Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
-Example of checking connectivity between Host-B and Host-C, after the vagrant up has succesfully been done.
+The following is an example of connectivity check between Host-B and Host-C
 ```
 vagrant ssh host-b
 ping 192.168.8.1
@@ -243,7 +243,7 @@ PING 192.168.8.1 (192.168.8.1) 56(84) bytes of data.
 19 packets transmitted, 19 received, 0% packet loss, time 18039ms
 rtt min/avg/max/mdev = 1.165/1.713/2.458/0.299 ms
 ```
-To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are in Host-B yet, we only have to type  ```curl 192.168.8.1```
+To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are still in Host-B, we only have to type  ```curl 192.168.8.1```
 
 to obtain 
 ```
@@ -260,3 +260,4 @@ vagrant@host-b:~$ curl 192.168.8.1
     </body>
     </html> 
 ```
+ 
