@@ -242,7 +242,8 @@ PING 192.168.8.1 (192.168.8.1) 56(84) bytes of data.
 19 packets transmitted, 19 received, 0% packet loss, time 18039ms
 rtt min/avg/max/mdev = 1.165/1.713/2.458/0.299 ms
 ```
-To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are in Host-B yet, we only have to type ```curl 192.168.8.1```
+To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are in Host-B yet, we only have to type 
+> ```curl 192.168.8.1```
 
 ```
 vagrant@host-b:~$ curl 192.168.8.1
