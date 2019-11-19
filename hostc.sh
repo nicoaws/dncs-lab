@@ -10,8 +10,8 @@ apt install -y docker-ce
 docker pull dustnic82/nginx-test
 
 mkdir /www
-echo -e '
-<!DOCTYPE html>
+echo -e 
+' <!DOCTYPE html>
 <html> 
     <head>
         <title>DNCS LAB PROJECT A.Y. 2019/2020</title> </head>
@@ -21,8 +21,7 @@ echo -e '
         <h3>Badge number: 194958</h3>
         <p> This is just a simple testing page</p>
     </body>
-    </html> 
-' > /www/index.html
+    </html> ' > /www/index.html
 
 docker run --name nginx -v /www:/usr/share/nginx/html -d -p 80:80 dustnic82/nginx-test
 

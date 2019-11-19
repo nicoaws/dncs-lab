@@ -11,7 +11,7 @@ The requirments are the following:
 
 # Design
 ## IP addresses
-For the given network topology we'll need 4 subnets: Host-A, Host-B, Hub and the subnet that includes the enp0s9 interfaces of router-1 and router-2, that I'll call Y for semplicity. We must calculate how many ips each subnet needs, considering that every subnet has 2 ip addresses that are reserved, so Host-A will need 384+2=386 ip addresses, corresponding to log_2⁡(386)=8.59⟹9 bits for host identification and 32-9=23 bits of network prefix. We can extend the reasoning for the other subnets, and then we decide 4 ip arbitrary choosed from ipv4 reserved private ranges of addresses.
+For the given network topology we'll need 4 subnets: Host-A, Host-B, Hub and the subnet that includes the enp0s9 interfaces of router-1 and router-2, that I'll call Y for semplicity. We must calculate how many ips each subnet needs, considering that every subnet has 2 ip addresses that are reserved, so Host-A will need 384+2=386 ip addresses, corresponding to log_2⁡(386)=8.59⟹9 bits for host identification and 32-9=23 bits of network prefix. We can extend the reasoning for the other subnets, and then we decide 4 IP addresses arbitrary choosed from ipv4 reserved private ranges of addresses.
 
 
 |  Subnet  |  Address  |   Subnet Mask  | 
@@ -160,8 +160,32 @@ To achieve the task, we must configure Host-A and Host-B as virtual LANs. This m
 | 192.168.8.0 |  0.0.0.0  |255.255.254.0   |
 
 ## Web Server
-Host-C must run a docker image, so we need to install docker in Host-C and then pull dustnic82/nginx-test image (as specified in the requirments). This has been done in lines 5 to 10 in hostc.sh file.
-In lines 12 to 25 I implement a simple web server configuration in html that will be downloaded in the following command at line 27.
+Host-C must run a docker image, so we need to install docker in Host-C and then pull dustnic82/nginx-test image (as specified in the requirments). This has been done in lines 5 to 10 in hostc.sh file:
+```
+5  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+6  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+7  apt update
+8  apt install -y docker-ce
+9
+10 docker pull dustnic82/nginx-test
+```
+In lines 12 to 24 I implement a simple web server configuration in html that will be downloaded in the command at line 26 ```docker run --name nginx -v /www:/usr/share/nginx/html -d -p 80:80 dustnic82/nginx-test ```
+```
+12 mkdir /www
+13 echo -e 
+14 ' <!DOCTYPE html>
+15 <html> 
+16     <head>
+17         <title>DNCS LAB PROJECT A.Y. 2019/2020</title> </head>
+18     <body>
+19         <h1>DNCS LAB</h1>   
+20         <h3>Student: Giovanna Nart</h3>
+21         <h3>Badge number: 194958</h3>
+22         <p> This is just a simple testing page</p>
+23    </body>
+24    </html> ' > /www/index.html
+```
+
 
 ## Vagrantfile changes
 While I worked at the project I had the necessity to expand the RAM of Host-C from 256 to 512 MB. Furthermore I modified the Vagrantfile because I put the specific scripts that I created instead of the generic "common.sh", in the path of each virtual machine.
