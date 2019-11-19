@@ -205,7 +205,9 @@ While I worked at the project I had the necessity to expand the RAM of Host-C fr
  ```
 
 # Testing 
-The status of the VMs can be verified with the command ```vagrant status ``` , that should give an output like
+The status of the VMs can be verified with the command 
+>```vagrant status ``` 
+ that should give an output like
 ```
 Current machine states:
 
@@ -224,8 +226,8 @@ VM, run `vagrant status NAME`.
 Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
 Example of checking connectivity between Host-B and Host-C, after the vagrant up has succesfully been done.
 
->``` vagrant ssh host-b
-> ping 192.168.8.1```
+> vagrant ssh host-b
+> ping 192.168.8.1
 
 
 obtaining something like
