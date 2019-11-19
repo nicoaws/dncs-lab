@@ -2,7 +2,7 @@
 
 ## Index
 - [Assignment and Design Requirments](#assignment-and-design-requirements)
-- [Design] (#design)
+- [Design](#design)
 ## Assignment and Design Requirments 
 The project is assigned from Nicola Arnoldi, and it's one of the two projects required for "Progettazione di reti e sistemi di comunicazione" at the faculty of Information and Comunication Engeneering, at the University of Trento.
 The requirments are the following:
