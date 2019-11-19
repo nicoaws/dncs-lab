@@ -223,11 +223,11 @@ VM, run `vagrant status NAME`.
 
 Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
 Example of checking connectivity between Host-B and Host-C, after the vagrant up has succesfully been done.
-```
-vagrant ssh host-b
-ping 192.168.8.1
 
-```
+>``` vagrant ssh host-b
+> ping 192.168.8.1```
+
+
 obtaining something like
 ```
 vagrant@host-b:~$ ping 192.168.8.1
@@ -245,6 +245,7 @@ rtt min/avg/max/mdev = 1.165/1.713/2.458/0.299 ms
 To test the reachability of the web server implemented in Host-C from Host-A and Host-B, we use the command curl. Since we are in Host-B yet, we only have to type 
 > ```curl 192.168.8.1```
 
+to obtain 
 ```
 vagrant@host-b:~$ curl 192.168.8.1
 <!DOCTYPE html>
