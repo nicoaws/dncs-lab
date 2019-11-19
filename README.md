@@ -205,6 +205,22 @@ While I worked at the project I had the necessity to expand the RAM of Host-C fr
  ```
 
 ## Testing 
+The status of the VMs can be verified with the command ```vagrant status ``` , that should give an output like
+```
+Current machine states:
+
+router-1                  running (virtualbox)
+router-2                  running (virtualbox)
+switch                    running (virtualbox)
+host-a                    running (virtualbox)
+host-b                    running (virtualbox)
+host-c                    running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.
+```
+
 Connectivity between the subnets can be checked using the command ping. We verify that there is connection between Host-A and Host-B, Host-A and Host-C, Host-B and Host-C  trying to ping from one to the other.
 Example of checking connectivity between Host-B and Host-C, after the vagrant up has succesfully been done.
 ```
