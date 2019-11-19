@@ -93,6 +93,7 @@ I gave Host-A, Host-B and Host-C the respective default gateway, and I added in 
 16 ip route add 192.168.6.0/24 via 192.168.2.1
 ```
 ## Routing Tables
+The following are the routing tables of the components of the network, that I visualized using the command ```route -n```.
 
 - Host-A   
 
@@ -196,7 +197,7 @@ In lines 12 to 24 I implement a simple web server configuration in html that wil
 
 
 # Vagrantfile changes
-While I worked at the project I had the necessity to expand the RAM of Host-C from 256 to 512 MB. Furthermore I modified the Vagrantfile because I put the specific scripts that I created instead of the generic "common.sh", in the path of each virtual machine. In the example below i show the modification for router-2's VM.
+While I worked at the project I had the necessity to expand the RAM of Host-C from 256 to 512 MB. Furthermore I modified the Vagrantfile because I put the specific scripts that I created instead of the generic "common.sh", in the path of each virtual machine. The change I've for router-2's VM is shown below.
 - Vagrantfile
 ```
  ...
